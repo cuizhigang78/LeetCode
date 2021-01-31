@@ -1,6 +1,7 @@
 package top100.p0001_two_sum;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -14,41 +15,44 @@ import java.util.Arrays;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/two-sum
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
+ * 这题这正常的思路是双层for循环遍历两次nums（如twoSum1），枚举出所有可能的和看是否有符合条件的，此时
+ *      时间复杂度 O(n²) ：遍历2次
+ *      空间复杂度 O(1) ：只有i，j两个变量
+ * 优化的思路是以空间换时间，使用hash来存储已遍历过的值，因为hash的时间复杂度是O(1)，所以会优化整体的时间复杂度，此时
+ *      时间复杂度 O(n) ：遍历1次
+ *      空间复杂度 O(n) ：hash的空间复杂度
+ *
  */
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 0; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target && i != j) {
-                    return new int[]{i, j};
+        Map<Integer, Integer> map = new HashMap<>(nums.length - 1);
+        map.put(nums[0], 0);
+        for (int i = 1; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i])) {
+                return new int[] {i, map.get(target - nums[i])};
+            }
+            map.put(nums[i], i);
+
+        }
+        throw new RuntimeException("no such sum");
+    }
+
+    /**
+     * 暴力解法：双层for循环
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum1(int[] nums, int target) {
+        // 因为第一个数不会是nums中的最后一位，所以只需要遍历到倒数第二位即可
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[] {i, j};
                 }
             }
         }
-        return null;
-    }
-
-    public int[] twoSum2(int[] nums, int target) {
-        int volume = 2048;       //100000000000
-        int bitMode = volume-1;//011111111111
-        int [] result = new int[volume];
-
-        for (int i=0;i<nums.length;i++){
-            int c = (target - nums[i]) & bitMode;
-            if (result[c]!=0){
-                return new int[]{result[c]-1,i};
-            }
-            result[nums[i] & bitMode]=i+1;
-        }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        long begin = System.currentTimeMillis();
-        int[] nums = new int[]{2, 2, 1, 3};
-        int target = 4;
-        Solution solution = new Solution();
-        int[] array = solution.twoSum(nums, target);
-        System.out.println(Arrays.toString(array));
-        System.out.println(System.currentTimeMillis() - begin);
+        throw new RuntimeException("no such sum");
     }
 }
