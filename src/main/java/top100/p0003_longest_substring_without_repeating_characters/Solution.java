@@ -38,6 +38,13 @@ import java.util.*;
  * 链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
+/**
+ * 模式识别：
+ *
+ * 1. 一旦涉及出现次数，需要用到散列表（构造子串，散列表存下标）
+ * 2. 涉及子串，考虑滑动窗口
+ */
 public class Solution {
     /**
      * 左右两个指针确定一个滑动窗口，hashMap储存已经出现的字符其及下标，
