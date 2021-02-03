@@ -46,6 +46,8 @@ package top100.p0019_remove_nth_node_from_end_of_list;
  * }
  */
 
+import top100.common.ListNode;
+
 /**
  * 模式识别：
  *
@@ -131,23 +133,6 @@ class Solution {
         while (pointer != null) {
             System.out.println(pointer.val);
             pointer = pointer.next;
-        }
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
         }
     }
 }
