@@ -22,4 +22,12 @@ public class ListNode {
         this.val = val;
         this.next = next;
     }
+
+    public void print() {
+        ListNode pointer = this;
+        while (pointer != null) {
+            System.out.println(pointer.val);
+            pointer = pointer.next;
+        }
+    }
 }
