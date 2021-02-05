@@ -1,4 +1,4 @@
-package top100.common;
+package common;
 
 /**
  * @ClassName ListNode

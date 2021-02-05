@@ -1,6 +1,6 @@
 package top100.p0021_merge_two_sorted_lists;
 
-import top100.common.ListNode;
+import common.ListNode;
 
 /**
  * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 

@@ -46,7 +46,7 @@ package top100.p0019_remove_nth_node_from_end_of_list;
  * }
  */
 
-import top100.common.ListNode;
+import common.ListNode;
 
 /**
  * 模式识别：

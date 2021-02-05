@@ -1,6 +1,6 @@
 package top100.p0023_merge_k_sorted_lists;
 
-import top100.common.ListNode;
+import common.ListNode;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
