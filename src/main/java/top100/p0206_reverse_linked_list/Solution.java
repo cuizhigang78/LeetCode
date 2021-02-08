@@ -22,7 +22,7 @@ public class Solution {
 
         ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 
-        ListNode result = solution.reverseList3(head);
+        ListNode result = solution.reverseList(head);
 
         result.print();
 
@@ -31,7 +31,10 @@ public class Solution {
     /**
      * 递归
      *
+     * 执行结果： 通过
      *
+     * 执行用时： 0 ms , 在所有 Java 提交中击败了 100.00% 的用户
+     * 内存消耗： 38.5 MB , 在所有 Java 提交中击败了 12.79% 的用户
      *
      * @param head
      * @return
@@ -50,6 +53,11 @@ public class Solution {
 
     /**
      * 迭代 + 栈
+     *
+     * 执行结果： 通过
+     *
+     * 执行用时： 1 ms , 在所有 Java 提交中击败了 5.10% 的用户
+     * 内存消耗： 38.4 MB , 在所有 Java 提交中击败了 30.96% 的用户
      *
      * @param head
      * @return
@@ -79,7 +87,13 @@ public class Solution {
     }
 
     /**
-     * 纯迭代，双层循环
+     * 遍历链表，将每个节点的next指向它的前一个节点
+     * 因为单向链表没有前一个节点，所以使用prev变量保存，并在每次向前遍历时更新prev。
+     *
+     * 执行结果： 通过
+     *
+     * 执行用时： 0 ms , 在所有 Java 提交中击败了 100.00% 的用户
+     * 内存消耗： 38.2 MB , 在所有 Java 提交中击败了 63.55% 的用户
      *
      * @param head
      * @return
@@ -88,27 +102,15 @@ public class Solution {
 
         if (head == null || head.next == null) return head;
 
-        ListNode dummyNode = new ListNode(0);
-        ListNode nextNode = dummyNode;
+        ListNode prev = null;
+        ListNode curr = head;
 
-        // 1. 计算原链表长度
-        int len = 0;
-        ListNode pointer = head;
-        while (pointer != null) {
-            len++;
-            pointer = pointer.next;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
-
-        // 2. 从尾到头遍历原链表
-        for (int i = 0; i < len; i++) {
-            pointer = head;
-            for (int j = 0; j < len - i - 1; j++) {
-                pointer = pointer.next;
-            }
-            pointer.next = null;
-            nextNode.next = pointer;
-            nextNode = nextNode.next;
-        }
-        return dummyNode.next;
+        return prev;
     }
 }
