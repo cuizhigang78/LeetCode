@@ -87,12 +87,12 @@ public class Solution {
         //System.out.println(Arrays.toString(nums));
         // -4, -1, -1, 0, 1, 2
         // -5, -5, -4, -4, -4, -2, -2, -2, 0, 0, 0, 1, 1, 3, 4, 4
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length - 2; i++) {
             if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int target = -(nums[i]);
             int left = i + 1;
             int right = nums.length - 1;
             while (left < right) {
-                int target = -(nums[i]);
                 if (nums[left] + nums[right] == target) {
                     rtList.add(Arrays.asList(-target, nums[left], nums[right]));
                     left++;
