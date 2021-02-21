@@ -38,9 +38,6 @@ package top100.p0053_maximum_subarray;
  * <p>
  * 进阶：如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的 分治法 求解。
  * <p>
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/maximum-subarray
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Solution {
 
@@ -116,19 +113,8 @@ public class Solution {
      * // i=7; -2, 1, -2, 4, 3, 5, 6, 1, 4
      * // i=8; -2, 1, -2, 4, 3, 5, 6, -5, 5
      *
-     * 执行结果：
-     * 通过
-     * 显示详情
-     * 执行用时：
-     * 1 ms
-     * , 在所有 Java 提交中击败了
-     * 93.56%
-     * 的用户
-     * 内存消耗：
-     * 38.6 MB
-     * , 在所有 Java 提交中击败了
-     * 19.13%
-     * 的用户
+     * 执行用时：1ms,在所有Java提交中击败了93.56%的用户
+     * 内存消耗：38.6MB,在所有Java提交中击败了19.13%的用户
      *
      * @param nums
      * @return

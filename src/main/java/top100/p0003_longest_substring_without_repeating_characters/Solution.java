@@ -3,40 +3,36 @@ package top100.p0003_longest_substring_without_repeating_characters;
 import java.util.*;
 
 /**
+ * 3. 无重复字符的最长子串 （medium）
+ * <p>
  * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
  * <p>
- *  
- * <p>
  * 示例 1:
- * <p>
  * 输入: s = "abcabcbb"
  * 输出: 3
  * 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+ * <p>
  * 示例 2:
  * <p>
  * 输入: s = "bbbbb"
  * 输出: 1
  * 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+ * <p>
  * 示例 3:
  * <p>
  * 输入: s = "pwwkew"
  * 输出: 3
  * 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
  *      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+ * <p>
  * 示例 4:
  * <p>
  * 输入: s = ""
  * 输出: 0
  *  
- * <p>
  * 提示：
- * <p>
  * 0 <= s.length <= 5 * 104
  * s 由英文字母、数字、符号和空格组成
- * <p>
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/longest-substring-without-repeating-characters
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
 /**
@@ -57,7 +53,7 @@ public class Solution {
      */
     public int lengthOfLongestSubstring2(String s) {
         if (s == null || "".equals(s)) return 0;
-        int left = 0;
+        int j = 0;
         int maxLength = 0;
 
         Map<Character, Integer> map = new HashMap<>();
@@ -65,18 +61,20 @@ public class Solution {
             if (map.containsKey(s.charAt(i))) {
                 // 当左指针小于或等于该重复元素的上一次出现的下标时，
                 // 将左指针右移
-                /*if (left < map.get(s.charAt(i)) + 1) {
-                    left = map.get(s.charAt(i)) + 1;
+                /*if (j < map.get(s.charAt(i)) + 1) {
+                    j = map.get(s.charAt(i)) + 1;
                 }*/
-                left = Math.max(left, map.get(s.charAt(i)) + 1);
+                j = Math.max(j, map.get(s.charAt(i)) + 1);
             }
             map.put(s.charAt(i), i);
-            maxLength = Math.max(maxLength, i - left + 1);
+            maxLength = Math.max(maxLength, i - j + 1);
         }
         return maxLength;
     }
 
     /**
+     * 截取字符串，通过HashSet来判断是否有重复字符
+     *
      * 执行结果：通过
      * 显示详情
      * 执行用时：9 ms, 在所有 Java 提交中击败了42.09%的用户

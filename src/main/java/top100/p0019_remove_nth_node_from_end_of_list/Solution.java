@@ -1,5 +1,7 @@
 package top100.p0019_remove_nth_node_from_end_of_list;
 
+import common.ListNode;
+
 /**
  * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
  * <p>
@@ -28,27 +30,7 @@ package top100.p0019_remove_nth_node_from_end_of_list;
  * 1 <= sz <= 30
  * 0 <= Node.val <= 100
  * 1 <= n <= sz
- * 通过次数315,953提交次数77
- * <p>
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- */
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-
-import common.ListNode;
-
-/**
+ *
  * 模式识别：
  *
  * 1. 涉及链表的特殊位置，考虑快慢指针
@@ -125,14 +107,6 @@ class Solution {
                 //new ListNode(1);
                 new ListNode(1, new ListNode(2));
         ListNode retNode = solution.removeNthFromEnd1(head, 2);
-        printListNode(retNode);
-    }
-
-    private static void printListNode(ListNode head) {
-        ListNode pointer = head;
-        while (pointer != null) {
-            System.out.println(pointer.val);
-            pointer = pointer.next;
-        }
+        retNode.print();
     }
 }
