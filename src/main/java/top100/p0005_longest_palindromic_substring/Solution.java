@@ -29,8 +29,8 @@ package top100.p0005_longest_palindromic_substring;
 public class Solution {
 
     public static void main(String[] args) {
-        String s = "aba";
-        System.out.println(longestPalindrome(s));
+        String s = "cbbd";
+        System.out.println(longestPalindrome1(s));
     }
 
     /**
@@ -76,5 +76,43 @@ public class Solution {
             j--;
         }
         return true;
+    }
+
+    /**
+     * 动态规划
+     * <p>
+     * 判断一个字符串是否回文 = 头尾字符相同 并且 去掉头尾之后的子串是回文
+     * <p>
+     * 执行用时：179 ms, 在所有 Java 提交中击败了51.21%的用户
+     * 内存消耗：43.2 MB, 在所有 Java 提交中击败了24.11%的用户
+     *
+     * @param s
+     * @return
+     */
+    public static String longestPalindrome1(String s) {
+        int begin = 0;
+        int maxLen = 0;
+        char[] chars = s.toCharArray();
+        int len = chars.length;
+        boolean[][] memory = new boolean[len][len];
+
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (chars[i] != chars[j]) {
+                    memory[j][i] = false;
+                } else {
+                    if (i - j < 3) {
+                        memory[j][i] = chars[i] == chars[j];
+                    } else {
+                        memory[j][i] = memory[j + 1][i - 1];
+                    }
+                }
+                if (memory[j][i] && i - j + 1 > maxLen) {
+                    begin = j;
+                    maxLen = i - j + 1;
+                }
+            }
+        }
+        return s.substring(begin, begin + maxLen);
     }
 }

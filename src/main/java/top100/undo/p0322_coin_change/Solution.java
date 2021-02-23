@@ -37,16 +37,12 @@ import java.util.Arrays;
  * 1 <= coins.length <= 12
  * 1 <= coins[i] <= 231 - 1
  * 0 <= amount <= 104
- * <p>
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/coin-change
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Solution {
 
     public static void main(String[] args) {
-        int[] coins = {186,419,83,408};
-        int amount = 6249;
+        int[] coins = {1, 2, 5};
+        int amount = 11;
         System.out.println(coinChange(coins, amount));
     }
 
@@ -58,32 +54,18 @@ public class Solution {
     }
 
     public static int coinChange(int[] coins, int amount, int count) {
-
         if (amount == 0) {
             return 0;
         }
-
-        if (amount < coins[0]) {
-            return -1;
-        }
-
         // 找到coins里比amount小的最大元素
         int coin = 0;
-        if (amount >= coins[coins.length - 1]) {
-            coin = coins[coins.length - 1];
-        } else if (amount == coins[0]) {
-            coin = coins[0];
-        } else {
-            for (int i = 0; i < coins.length - 1; i++) {
-                if (coins[i] <= amount && coins[i + 1] > amount) {
-                    coin = coins[i];
-                }
+        for (int i = coins.length - 1; i >= 0; i--) {
+            if (coins[i] <= amount) {
+                coin = coins[i];
             }
         }
         count += amount / coin;
-
         amount = amount % coin;
-
         if (amount == 0) {
             return count;
         } else {
