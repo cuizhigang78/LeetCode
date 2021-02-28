@@ -1,7 +1,5 @@
 package top100.p0300_longest_increasing_subsequence;
 
-import java.util.Arrays;
-
 /**
  * 300. 最长递增子序列 （medium）
  * <p>
