@@ -23,14 +23,14 @@ import java.util.Map;
  * 时间复杂度 O(n) ：遍历1次
  * 空间复杂度 O(n) ：hash的空间复杂度
  *
- * 因为是返回数组下标，所以不能使用排序法
+ * 也可以采用先排序再双指针遍历的方式，不过因为此题要求返回数组下标，所以相对来说并不优秀
  */
 class Solution {
 
     public static void main(String[] args) {
         int[] nums = {2, 7, 11, 15};
         int target = 9;
-        System.out.println(Arrays.toString(twoSum1(nums, target)));
+        System.out.println(Arrays.toString(twoSum(nums, target)));
     }
     /**
      * 使用HashMap优化
@@ -47,8 +47,7 @@ class Solution {
      */
     public static int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>(nums.length - 1);
-        map.put(nums[0], 0);
-        for (int i = 1; i < nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
                 return new int[]{i, map.get(target - nums[i])};
             }

@@ -1,9 +1,7 @@
 package top100.p0015_3sum;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 15. 三数之和 (medium)
@@ -42,15 +40,11 @@ import java.util.List;
 public class Solution {
 
     public static void main(String[] args) {
-
         Solution solution = new Solution();
-
         //int[] nums = {-1, 0, 1, 2, -1, -4};
-        //int[] nums = {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0};
-        int[] nums = {0, 0, 0};
-
+        int[] nums = {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0};
+        //int[] nums = {0, 0, 0};
         List<List<Integer>> lists = solution.threeSum(nums);
-
         System.out.println(lists);
     }
 
@@ -64,30 +58,35 @@ public class Solution {
      * 2. 遍历原数组，如果相邻的数是相同的，跳到下一个数；
      * 3. 外层循环确定数e后，通过twoSum寻找两数之后为-e的即满足条件，将这三个数加到返回值列表中；
      * 4. 符合条件的解可能不止一组，左指针前进，右指针后退，继续求和，注意，因为去重的原因，此时还需要判断左右指针的值以避免重复
-     * <p>
-     * 时间复杂度：
-     * <p>
-     * 排序 O(n㏒n)
-     * 搜索解 O(n²)
+     *
+     * 时间复杂度：O(n²)
+     * 空间复杂度：O(1)
+     *
+     * 执行用时：26 ms, 在所有 Java 提交中击败了49.34%的用户
+     * 内存消耗：42.5 MB, 在所有 Java 提交中击败了45.97%的用户
      *
      * @param nums
      * @return
      */
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> rtList = new ArrayList<>();
-        if (nums.length == 0) return rtList;
-
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++) {
+            if(nums[i] > 0) return rtList;
             if (i > 0 && nums[i] == nums[i - 1]) continue;
             int target = -(nums[i]);
             int left = i + 1;
             int right = nums.length - 1;
             while (left < right) {
                 if (nums[left] + nums[right] == target) {
-                    rtList.add(Arrays.asList(-target, nums[left], nums[right]));
+                    List<Integer> cur = new ArrayList<>();
+                    cur.add(-target);
+                    cur.add(nums[left]);
+                    cur.add(nums[right]);
+                    rtList.add(cur);
                     left++;
                     right--;
+                    // 左右指针都要跳过相同的数以产生重复结果
                     while (left < nums.length && nums[left] == nums[left - 1]) left++;
                     while (right > 0 && nums[right] == nums[right + 1]) right--;
                 } else if (nums[left] + nums[right] > target) {

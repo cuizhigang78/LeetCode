@@ -46,6 +46,9 @@ public class Solution {
      * 左右两个指针确定一个滑动窗口，hashMap储存已经出现的字符其及下标，
      * 正常情况下，向右逐一推进右指针，当有字符重复出现时，向右推进右指针。
      *
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     *
      * 执行用时： 7 ms , 在所有 Java 提交中击败了 79.90% 的用户
      * 内存消耗： 38.5 MB , 在所有 Java 提交中击败了 78.03% 的用户
      * @param s
@@ -75,8 +78,6 @@ public class Solution {
     /**
      * 截取字符串，通过HashSet来判断是否有重复字符
      *
-     * 执行结果：通过
-     * 显示详情
      * 执行用时：9 ms, 在所有 Java 提交中击败了42.09%的用户
      * 内存消耗：38.5 MB, 在所有 Java 提交中击败了65.03%的用户
      */
@@ -92,7 +93,7 @@ public class Solution {
             if (length == new HashSet<>(Arrays.asList(substring.split(""))).size()) {
                 // 如果没有重复字符串，则继续向右扩大窗口
                 right++;
-                maxLength = maxLength > length ? maxLength : length;
+                maxLength = Math.max(maxLength, length);
             } else {
                 // 如果有重复字符串，则窗口右移
                 int index = substring.indexOf(substring.substring(substring.length() - 1));
@@ -102,11 +103,31 @@ public class Solution {
         return maxLength;
     }
 
+    public int lengthOfLongestSubstring3(String s) {
+        int[] last = new int[128];
+        for(int i = 0; i < 128; i++) {
+            last[i] = -1;
+        }
+        int n = s.length();
+
+        int res = 0;
+        int start = 0; // 窗口开始位置
+        for(int i = 0; i < n; i++) {
+            // 0-127以内   int和char互换
+            int index = s.charAt(i);
+            start = Math.max(start, last[index] + 1);
+            res   = Math.max(res, i - start + 1);
+            last[index] = i;
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
         Solution solution = new Solution();
 
         String s = "abba";
 
-        System.out.println(solution.lengthOfLongestSubstring2(s));
+        System.out.println(solution.lengthOfLongestSubstring3(s));
     }
 }
