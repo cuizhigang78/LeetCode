@@ -1,11 +1,7 @@
 package common;
 
 /**
- * @ClassName ListNode
- * @Author Maxwell
- * @Date 2021/2/3 21:30
- * @Description ListNode
- * @Version 1.0
+ * 链表节点
  */
 public class ListNode {
     public int val;
