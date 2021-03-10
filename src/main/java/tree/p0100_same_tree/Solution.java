@@ -1,4 +1,4 @@
-package top100.tree.p0100_same_tree;
+package tree.p0100_same_tree;
 
 import common.TreeNode;
 
