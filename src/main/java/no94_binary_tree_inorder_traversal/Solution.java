@@ -12,8 +12,8 @@ import java.util.Stack;
 public class Solution {
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3), null));
-        // TreeNode root = new TreeNode(11, new TreeNode(5, new TreeNode(7), new TreeNode(9, new TreeNode(8), new TreeNode(10))), new TreeNode(15));
+        // TreeNode root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3), null));
+        TreeNode root = new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7)));
         List<Integer> list = inorderTraversal(root);
         System.out.println("输出：" + list);
 
@@ -32,21 +32,22 @@ public class Solution {
      */
     public static List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        TreeNode pre;
         while (root != null) {
-            // 如果左节点不为空，就将当前节点连带右子树全部挂到左节点的最右子树下面
             if (root.left != null) {
-                pre = root.left;
-                while (pre.right != null) {
-                    pre = pre.right;
+                // 1. 如果左子树不为空，就把当前节点及右子树（如果有的话）挂到左子树的最右节点的右节点
+                // 1.1 找到左子树的最右节点
+                TreeNode leftSonRightmost = root.left;
+                while (leftSonRightmost.right != null) {
+                    leftSonRightmost = leftSonRightmost.right;
                 }
-                pre.right = root;
-                // 将root指向root的left
-                TreeNode tmp = root;
-                root = root.left;
-                tmp.left = null;
+                // 1.2 把当前节点及右子树（如果有的话）放到左子树的最右节点的右节点
+                leftSonRightmost.right = root;
+                // 1.3 root 指向它的左子树
+                TreeNode left = root.left;
+                root.left = null;
+                root = left;
             } else {
-                // 左子树为空，则打印这个节点，并向右边遍历
+                // 2. 如果左子树为空，就向右遍历
                 res.add(root.val);
                 root = root.right;
             }

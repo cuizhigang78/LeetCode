@@ -1,4 +1,4 @@
-package no145_binary_tree_postorder_traversal;
+package no144_binary_tree_preorder_traversal;
 
 import common.TreeNode;
 
@@ -7,47 +7,60 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 后序遍历：左 -> 右 -> 中
+ * 二叉树的前序遍历
+ * <p>
+ * 前序：中 -> 左 -> 右
  */
 public class Solution {
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7)));
-        List<Integer> list = postorderTraversal(root);
+        List<Integer> list = preorderTraversal(root);
         System.out.println("输出：" + list);
     }
 
     /**
-     * morris
+     * 3. Morris
      * @param root
      * @return
      */
-    public static List<Integer> postorderTraversal(TreeNode root) {
+    public static List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         while (root != null) {
+            res.add(root.val);
+            if (root.left != null) {
+                // 1. 如果左子树不为空，就把右子树（如果有得话）直接挂到左子树的最右节点的右节点
+                TreeNode leftSonRightmost = root.left;
+                while (leftSonRightmost.right != null) {
+                    leftSonRightmost = leftSonRightmost.right;
+                }
+                leftSonRightmost.right = root.right;
+                root = root.left;
+            } else {
+                // 2. 如果左子树为空，向右迭代
+                root = root.right;
+            }
 
         }
         return res;
     }
 
     /**
-     * 2. 迭代
+     * 迭代
      *
      * @param root
      * @return
      */
-    public static List<Integer> postorderTraversal2(TreeNode root) {
+    public static List<Integer> preorderTraversal2(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         LinkedList<TreeNode> stack = new LinkedList<>();
         while (root != null || !stack.isEmpty()) {
             if (root != null) {
+                res.add(root.val);
                 stack.push(root);
                 root = root.left;
             } else {
                 TreeNode poll = stack.poll();
-                if (poll.right == null) {
-                    res.add(poll.val);
-                }
                 root = poll.right;
             }
         }
@@ -60,16 +73,16 @@ public class Solution {
      * @param root
      * @return
      */
-    public static List<Integer> postorderTraversal1(TreeNode root) {
+    public static List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        postorder(root, res);
+        preorder(root, res);
         return res;
     }
 
-    private static void postorder(TreeNode root, List<Integer> res) {
+    private static void preorder(TreeNode root, List<Integer> res) {
         if (root == null) return;
-        postorder(root.left, res);
-        postorder(root.right, res);
         res.add(root.val);
+        preorder(root.left, res);
+        preorder(root.right, res);
     }
 }
