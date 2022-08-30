@@ -2,9 +2,7 @@ package no144_binary_tree_preorder_traversal;
 
 import common.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 二叉树的前序遍历
@@ -15,7 +13,7 @@ public class Solution {
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(5)), new TreeNode(3, new TreeNode(6), new TreeNode(7)));
-        List<Integer> list = preorderTraversal(root);
+        List<Integer> list = preorderTraversal2(root);
         System.out.println("输出：" + list);
     }
 
@@ -48,20 +46,24 @@ public class Solution {
     /**
      * 迭代
      *
+     * 1. 从栈中弹出一个节点 cur
+     * 2. 处理 cur
+     * 3. 先右后左压栈（如果有）
+     * 4. 循环
+     *
      * @param root
      * @return
      */
     public static List<Integer> preorderTraversal2(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        LinkedList<TreeNode> stack = new LinkedList<>();
-        while (root != null || !stack.isEmpty()) {
-            if (root != null) {
-                res.add(root.val);
-                stack.push(root);
-                root = root.left;
-            } else {
-                TreeNode poll = stack.poll();
-                root = poll.right;
+        if (root != null) {
+            Deque<TreeNode> stack = new ArrayDeque<>();
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                TreeNode cur = stack.pop();
+                res.add(cur.val);
+                if (cur.right != null) stack.push(cur.right);
+                if (cur.left != null) stack.push(cur.left);
             }
         }
         return res;

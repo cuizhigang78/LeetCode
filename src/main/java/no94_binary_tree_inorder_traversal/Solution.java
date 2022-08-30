@@ -2,9 +2,7 @@ package no94_binary_tree_inorder_traversal;
 
 import common.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 中序遍历：左 -> 中 -> 右
