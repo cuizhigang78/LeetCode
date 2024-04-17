@@ -19,8 +19,8 @@ public class Solution {
 
     /**
      * 3. Morris
-     * @param root
-     * @return
+     * @param root 根节点
+     * @return 前序遍历结果
      */
     public static List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
